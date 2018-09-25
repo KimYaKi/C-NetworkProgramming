@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadReceive", "ThreadRece
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadReceiveData", "ThreadReceiveData\ThreadReceiveData.csproj", "{9DAAA514-23FA-4002-A83C-88CE1B90BB7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_parameterThread", "mook_parameterThread\mook_parameterThread.csproj", "{711D047B-DB8C-4B73-A29C-4B9056837F3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9DAAA514-23FA-4002-A83C-88CE1B90BB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DAAA514-23FA-4002-A83C-88CE1B90BB7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DAAA514-23FA-4002-A83C-88CE1B90BB7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{711D047B-DB8C-4B73-A29C-4B9056837F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{711D047B-DB8C-4B73-A29C-4B9056837F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{711D047B-DB8C-4B73-A29C-4B9056837F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{711D047B-DB8C-4B73-A29C-4B9056837F3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
