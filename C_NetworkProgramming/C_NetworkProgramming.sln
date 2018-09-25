@@ -3,19 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_parameterThread", "..\..\NetworkProgramming\mook_parameterThread\mook_parameterThread.csproj", "{4959A3A7-37E8-42A0-B781-DE98434F6E31}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_EventNumCatch", "..\..\NetworkProgramming\mook_EventNumCatch\mook_EventNumCatch.csproj", "{47E40A3E-5BC1-4375-84BA-29CEBEDAE1C3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_MsgForm", "..\..\NetworkProgramming\mook_MsgForm\mook_MsgForm.csproj", "{E22EA63E-FD80-4FDA-9A65-ED09799CC866}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSend", "..\..\NetworkProgramming\ThreadSend\ThreadSend.csproj", "{977DD47A-12FB-47E8-B558-75CEB23D8177}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadReceive", "..\..\NetworkProgramming\ThreadReceive\ThreadReceive.csproj", "{9362EC6E-D646-4E39-8C64-BE2277B76A74}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadReceiveData", "..\..\NetworkProgramming\ThreadReceiveData\ThreadReceiveData.csproj", "{B967CD81-5479-4917-8AE4-9AF9ED361828}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commit_Test", "Commit_Test\Commit_Test.csproj", "{3196F9CB-D96E-4F4F-A0FB-EB27104E9E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commit_Test", "Commit_Test\Commit_Test.csproj", "{3196F9CB-D96E-4F4F-A0FB-EB27104E9E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,30 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4959A3A7-37E8-42A0-B781-DE98434F6E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4959A3A7-37E8-42A0-B781-DE98434F6E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4959A3A7-37E8-42A0-B781-DE98434F6E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4959A3A7-37E8-42A0-B781-DE98434F6E31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47E40A3E-5BC1-4375-84BA-29CEBEDAE1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47E40A3E-5BC1-4375-84BA-29CEBEDAE1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47E40A3E-5BC1-4375-84BA-29CEBEDAE1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47E40A3E-5BC1-4375-84BA-29CEBEDAE1C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E22EA63E-FD80-4FDA-9A65-ED09799CC866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E22EA63E-FD80-4FDA-9A65-ED09799CC866}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E22EA63E-FD80-4FDA-9A65-ED09799CC866}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E22EA63E-FD80-4FDA-9A65-ED09799CC866}.Release|Any CPU.Build.0 = Release|Any CPU
-		{977DD47A-12FB-47E8-B558-75CEB23D8177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{977DD47A-12FB-47E8-B558-75CEB23D8177}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{977DD47A-12FB-47E8-B558-75CEB23D8177}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{977DD47A-12FB-47E8-B558-75CEB23D8177}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9362EC6E-D646-4E39-8C64-BE2277B76A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9362EC6E-D646-4E39-8C64-BE2277B76A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9362EC6E-D646-4E39-8C64-BE2277B76A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9362EC6E-D646-4E39-8C64-BE2277B76A74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B967CD81-5479-4917-8AE4-9AF9ED361828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B967CD81-5479-4917-8AE4-9AF9ED361828}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B967CD81-5479-4917-8AE4-9AF9ED361828}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B967CD81-5479-4917-8AE4-9AF9ED361828}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3196F9CB-D96E-4F4F-A0FB-EB27104E9E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3196F9CB-D96E-4F4F-A0FB-EB27104E9E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3196F9CB-D96E-4F4F-A0FB-EB27104E9E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
