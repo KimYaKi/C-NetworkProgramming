@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_parameterThread", "moo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_EventNumCatch", "mook_EventNumCatch\mook_EventNumCatch.csproj", "{0ACA8C0C-59DA-4251-9AB5-F2FA916321DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgForm", "MsgForm\MsgForm.csproj", "{B97612C1-04EE-4423-A893-000FEF2C218B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{0ACA8C0C-59DA-4251-9AB5-F2FA916321DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ACA8C0C-59DA-4251-9AB5-F2FA916321DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ACA8C0C-59DA-4251-9AB5-F2FA916321DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97612C1-04EE-4423-A893-000FEF2C218B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97612C1-04EE-4423-A893-000FEF2C218B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97612C1-04EE-4423-A893-000FEF2C218B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97612C1-04EE-4423-A893-000FEF2C218B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
