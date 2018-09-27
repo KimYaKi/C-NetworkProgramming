@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mook_EventNumCatch", "mook_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgForm", "MsgForm\MsgForm.csproj", "{B97612C1-04EE-4423-A893-000FEF2C218B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPHost_Ex", "IPHost_Ex\IPHost_Ex.csproj", "{63060C99-780C-438C-A50D-383D09A13BD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{B97612C1-04EE-4423-A893-000FEF2C218B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B97612C1-04EE-4423-A893-000FEF2C218B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B97612C1-04EE-4423-A893-000FEF2C218B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63060C99-780C-438C-A50D-383D09A13BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63060C99-780C-438C-A50D-383D09A13BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63060C99-780C-438C-A50D-383D09A13BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63060C99-780C-438C-A50D-383D09A13BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
