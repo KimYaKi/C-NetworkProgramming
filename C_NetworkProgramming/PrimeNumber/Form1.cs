@@ -90,6 +90,7 @@ namespace PrimeNumber
             this.lblNum.Text = ChkNum;
         }
 
+        // Form 종료시 스레드 강제 종료
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (chkNum != null)
