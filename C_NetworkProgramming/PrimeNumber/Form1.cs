@@ -89,5 +89,13 @@ namespace PrimeNumber
         {
             this.lblNum.Text = ChkNum;
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (chkNum != null)
+                chkNum.Join();
+            if (primeNum != null)
+                primeNum.Join();
+        }
     }
 }
