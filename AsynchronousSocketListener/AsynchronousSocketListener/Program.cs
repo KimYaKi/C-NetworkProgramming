@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
+// 비동기식 소켓 서버
 // State object for reading client data asynchronously  
 public class StateObject
 {
