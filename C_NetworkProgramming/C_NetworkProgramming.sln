@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPHost_Ex", "IPHost_Ex\IPHo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeNumber", "PrimeNumber\PrimeNumber.csproj", "{669095E2-B499-4F08-9C0B-0A2288141391}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleServer", "ConsoleServer\ConsoleServer.csproj", "{CD8DAFAE-DBC3-4A23-961B-5C722FD2F541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{4995EDBB-750D-4C93-8489-C8C29DB750C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{669095E2-B499-4F08-9C0B-0A2288141391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{669095E2-B499-4F08-9C0B-0A2288141391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{669095E2-B499-4F08-9C0B-0A2288141391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD8DAFAE-DBC3-4A23-961B-5C722FD2F541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8DAFAE-DBC3-4A23-961B-5C722FD2F541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8DAFAE-DBC3-4A23-961B-5C722FD2F541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8DAFAE-DBC3-4A23-961B-5C722FD2F541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4995EDBB-750D-4C93-8489-C8C29DB750C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4995EDBB-750D-4C93-8489-C8C29DB750C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4995EDBB-750D-4C93-8489-C8C29DB750C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4995EDBB-750D-4C93-8489-C8C29DB750C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
