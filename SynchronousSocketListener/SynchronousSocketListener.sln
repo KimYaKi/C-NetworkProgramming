@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronousSocketListener", "SynchronousSocketListener\SynchronousSocketListener.csproj", "{CDCF8719-319B-4C6D-816F-5DFE2B19EB37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronousSocketClient", "SynchronousSocketClient\SynchronousSocketClient.csproj", "{9AFE7E2E-AF7A-4EDA-BF0D-80A203BD5FD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CDCF8719-319B-4C6D-816F-5DFE2B19EB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDCF8719-319B-4C6D-816F-5DFE2B19EB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDCF8719-319B-4C6D-816F-5DFE2B19EB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AFE7E2E-AF7A-4EDA-BF0D-80A203BD5FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AFE7E2E-AF7A-4EDA-BF0D-80A203BD5FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AFE7E2E-AF7A-4EDA-BF0D-80A203BD5FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AFE7E2E-AF7A-4EDA-BF0D-80A203BD5FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
