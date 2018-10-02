@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
+// 동기식 소켓 서버
 public class SynchronousSocketListener
 {
 
