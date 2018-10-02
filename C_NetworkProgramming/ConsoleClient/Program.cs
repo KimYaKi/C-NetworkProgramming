@@ -28,26 +28,33 @@ namespace ConsoleClient
             using (Socket srvSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 11200);
-
-                srvSocket.Bind(endPoint);
-                srvSocket.Listen(10);
-
-                while (true)
+                try
                 {
-                    Socket clntSocket = srvSocket.Accept();
-                    byte[] recvBytes = new byte[1024];
-                    int nRecv = clntSocket.Receive(recvBytes);
-                    string txt = Encoding.UTF8.GetString(recvBytes, 0, nRecv);
-                    byte[] sendBytes = Encoding.UTF8.GetBytes("Hello: " + txt);
-                    clntSocket.Send(sendBytes);
-                    clntSocket.Close();
+                    srvSocket.Bind(endPoint);
+                    srvSocket.Listen(10);
+
+                    while (true)
+                    {
+                        Socket clntSocket = srvSocket.Accept();
+                        byte[] recvBytes = new byte[1024];
+                        int nRecv = clntSocket.Receive(recvBytes);
+                        string txt = Encoding.UTF8.GetString(recvBytes, 0, nRecv);
+                        byte[] sendBytes = Encoding.UTF8.GetBytes("Hello: " + txt);
+                        clntSocket.Send(sendBytes);
+                        clntSocket.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
                 }
             }
         }
 
         private static void clientFunc(object obj)
         {
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket socket = null;
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             EndPoint serverEP = new IPEndPoint(IPAddress.Loopback, 11200);
             socket.Connect(serverEP);
@@ -60,10 +67,11 @@ namespace ConsoleClient
 
             string txt = Encoding.UTF8.GetString(recvBytes, 0, nRecv);
             Console.WriteLine(txt);
-            socket.Close();
+
+            if (socket != null)
+                socket.Close();
 
             Console.WriteLine("TCP Client socket: Closed");
-
         }
     }
 }
