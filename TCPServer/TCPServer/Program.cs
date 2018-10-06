@@ -48,9 +48,9 @@ namespace TCPServer
         {
             rec = new Thread(recV);
             Console.WriteLine("Your Local Ip is: " + GetIp());
-            Console.Write("Please enter your name");
+            Console.Write("Please enter your name : ");
             name = Console.ReadLine();
-            Console.WriteLine("Please Enter Your Host Port");
+            Console.Write("Please Enter Your Host Port : ");
 
             string inputPort = Console.ReadLine();
 
