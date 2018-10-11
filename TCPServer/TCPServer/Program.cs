@@ -38,10 +38,14 @@ namespace TCPServer
             {
                 Thread.Sleep(500);
                 byte[] Buffer = new byte[255];
+                // 전송 받은 데이터의 버퍼 크기
                 int rec = acc.Receive(Buffer, 0, Buffer.Length, 0);
                 Array.Resize(ref Buffer, rec);
                 Console.WriteLine(Encoding.UTF8.GetString(Buffer));
+                if (Buffer.Equals("quit"))
+                    break;
             }
+            Console.WriteLine("연결을 종료합니다.");
         }
 
         static void Main(string[] args)
@@ -63,7 +67,7 @@ namespace TCPServer
             sck = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             sck.Bind(new IPEndPoint(ip, port));
 
-            sck.Listen(0);
+            sck.Listen(10);
             acc = sck.Accept();
             rec.Start();
 
