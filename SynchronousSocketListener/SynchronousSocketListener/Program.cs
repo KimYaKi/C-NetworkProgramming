@@ -18,8 +18,7 @@ public class SynchronousSocketListener
         // Establish the local endpoint for the socket.  
         // Dns.GetHostName returns the name of the   
         // host running the application.  
-        IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-        IPAddress ipAddress = ipHostInfo.AddressList[0];
+        IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
         // Create a TCP/IP socket.  
@@ -71,7 +70,6 @@ public class SynchronousSocketListener
 
         Console.WriteLine("\nPress ENTER to continue...");
         Console.Read();
-
     }
 
     public static int Main(String[] args)
