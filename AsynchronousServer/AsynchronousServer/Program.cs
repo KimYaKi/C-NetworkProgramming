@@ -14,6 +14,8 @@ namespace AsynchronousServer
         public static ManualResetEvent Accept_Evnt = new ManualResetEvent(false);
         public static ManualResetEvent Send_Evnt = new ManualResetEvent(false);
         public static ManualResetEvent Receive_Evnt = new ManualResetEvent(false);
+        // 각각 함수의 End가 있는 부분이 나올 때 까지 프로그램을 잠시 멈춰준다.
+        
         public const int bufSize = 512;
         public static byte[] rcv_buff = new byte[bufSize];
         public static string rcvMsg = null;
@@ -64,7 +66,9 @@ namespace AsynchronousServer
 
                 Console.WriteLine("Server : Start");
                 svrSock.BeginAccept(new AsyncCallback(Accept_Cbk), svrSock);
+                // Accept_Cbk함수에서 EndAccept가 나올 때 까지 ManualResetEvent이 잠시 멈추도록 도와준다.
                 Accept_Evnt.WaitOne();
+                // Set부분이 나와야 대기가 풀린다.
                 Console.WriteLine("Server : connected a connect");
 
                 client.BeginReceive(rcv_buff, 0, bufSize, 0, new AsyncCallback(Receive_Cbk), client);
