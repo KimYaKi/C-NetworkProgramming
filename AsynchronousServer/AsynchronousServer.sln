@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsynchronousServer", "AsynchronousServer\AsynchronousServer.csproj", "{E1703C4A-DABD-4336-8D01-0A97B6132CBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsynchronousClient", "AsynchronousClient\AsynchronousClient.csproj", "{E76A75C1-2BEF-4A93-9AE8-A8AA4E644ADF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E1703C4A-DABD-4336-8D01-0A97B6132CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1703C4A-DABD-4336-8D01-0A97B6132CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1703C4A-DABD-4336-8D01-0A97B6132CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E76A75C1-2BEF-4A93-9AE8-A8AA4E644ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76A75C1-2BEF-4A93-9AE8-A8AA4E644ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76A75C1-2BEF-4A93-9AE8-A8AA4E644ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76A75C1-2BEF-4A93-9AE8-A8AA4E644ADF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
