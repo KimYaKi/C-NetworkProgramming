@@ -1,20 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StartForm
 {
-    public partial class Form1 : Form
+    public partial class StartForm : Form
     {
-        public Form1()
+        public StartForm()
         {
             InitializeComponent();
+        }
+
+        private void btn_login_Click(object sender, EventArgs e)
+        {
+            LoginForm.lgForm lg = new LoginForm.lgForm();
+            lg.Show();
+        }
+
+        private void btn_register_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

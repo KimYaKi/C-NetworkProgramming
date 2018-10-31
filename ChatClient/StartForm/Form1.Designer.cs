@@ -1,6 +1,6 @@
 ﻿namespace StartForm
 {
-    partial class Form1
+    partial class StartForm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -41,6 +41,7 @@
             this.btn_login.TabIndex = 0;
             this.btn_login.Text = "Login";
             this.btn_login.UseVisualStyleBackColor = true;
+            this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
             // btn_register
             // 
@@ -51,15 +52,16 @@
             this.btn_register.TabIndex = 1;
             this.btn_register.Text = "Register";
             this.btn_register.UseVisualStyleBackColor = true;
+            this.btn_register.Click += new System.EventHandler(this.btn_register_Click);
             // 
-            // Form1
+            // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(262, 193);
             this.Controls.Add(this.btn_register);
             this.Controls.Add(this.btn_login);
-            this.Name = "Form1";
+            this.Name = "StartForm";
             this.Text = "Start Form";
             this.ResumeLayout(false);
 
