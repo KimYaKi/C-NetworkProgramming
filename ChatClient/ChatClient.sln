@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "ChatClient\ChatClient.csproj", "{CE7DECEE-7947-4E3D-84F1-85E246F31954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartForm", "StartForm\StartForm.csproj", "{892DFE75-936C-4957-B87F-09BA0F9472F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CE7DECEE-7947-4E3D-84F1-85E246F31954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE7DECEE-7947-4E3D-84F1-85E246F31954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE7DECEE-7947-4E3D-84F1-85E246F31954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892DFE75-936C-4957-B87F-09BA0F9472F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892DFE75-936C-4957-B87F-09BA0F9472F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892DFE75-936C-4957-B87F-09BA0F9472F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892DFE75-936C-4957-B87F-09BA0F9472F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
