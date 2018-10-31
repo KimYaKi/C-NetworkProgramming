@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.btn_login = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_login
             // 
+            this.btn_login.Font = new System.Drawing.Font("Rage Italic", 13F, System.Drawing.FontStyle.Bold);
             this.btn_login.Location = new System.Drawing.Point(38, 31);
             this.btn_login.Name = "btn_login";
             this.btn_login.Size = new System.Drawing.Size(190, 40);
@@ -41,24 +42,25 @@
             this.btn_login.Text = "Login";
             this.btn_login.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btn_register
             // 
-            this.button1.Location = new System.Drawing.Point(38, 104);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 40);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_register.Font = new System.Drawing.Font("Rage Italic", 13F, System.Drawing.FontStyle.Bold);
+            this.btn_register.Location = new System.Drawing.Point(38, 105);
+            this.btn_register.Name = "btn_register";
+            this.btn_register.Size = new System.Drawing.Size(190, 40);
+            this.btn_register.TabIndex = 1;
+            this.btn_register.Text = "Register";
+            this.btn_register.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(262, 193);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_register);
             this.Controls.Add(this.btn_login);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Start Form";
             this.ResumeLayout(false);
 
         }
@@ -66,7 +68,7 @@
         #endregion
 
         private System.Windows.Forms.Button btn_login;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_register;
     }
 }
 
