@@ -3,6 +3,7 @@ using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using System.Text;
+using System.Drawing;
 
 namespace HttpService
 {
@@ -82,6 +83,33 @@ namespace HttpService
 
             Console.WriteLine(responseText);
             textBoxPost.Text = responseText;
+        }
+
+        private void buttonImageDown_Click(object sender, EventArgs e)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://httpbin.org/image/png");
+            request.Method = "GET";
+
+            // Response 바이너리 데이터 처리. 이미지 파일로 저장
+            using(WebResponse resp = request.GetResponse())
+            {
+                var buff = new byte[1024];
+                int pos = 0;
+                int count;
+                string filename = "image.png";
+                using(Stream stream = resp.GetResponseStream())
+                {
+                    using(var fs = new FileStream(filename, FileMode.Create))
+                    {
+                        do
+                        {
+                            count = stream.Read(buff, pos, buff.Length);
+                            fs.Write(buff, 0, count);
+                        } while (count > 0);
+                    }
+                }
+                imagePB.Image = new Bitmap(filename);
+            }
         }
     }
 }

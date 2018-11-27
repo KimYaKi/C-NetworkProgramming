@@ -109,6 +109,7 @@
             this.buttonImageDown.TabIndex = 7;
             this.buttonImageDown.Text = "그림받기";
             this.buttonImageDown.UseVisualStyleBackColor = true;
+            this.buttonImageDown.Click += new System.EventHandler(this.buttonImageDown_Click);
             // 
             // imagePB
             // 
