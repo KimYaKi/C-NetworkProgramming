@@ -76,6 +76,7 @@
             this.buttonPost.TabIndex = 3;
             this.buttonPost.Text = "Post";
             this.buttonPost.UseVisualStyleBackColor = true;
+            this.buttonPost.Click += new System.EventHandler(this.buttonPost_Click);
             // 
             // textBoxID
             // 
