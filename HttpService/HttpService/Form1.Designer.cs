@@ -57,6 +57,7 @@
             this.buttonGet.TabIndex = 1;
             this.buttonGet.Text = "Get";
             this.buttonGet.UseVisualStyleBackColor = true;
+            this.buttonGet.Click += new System.EventHandler(this.buttonGet_Click);
             // 
             // textBoxWeb
             // 
