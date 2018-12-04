@@ -1,6 +1,6 @@
 ﻿namespace ChatClient
 {
-    partial class Form1
+    partial class chForm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -59,7 +59,7 @@
             this.svr_text.Size = new System.Drawing.Size(477, 380);
             this.svr_text.TabIndex = 2;
             // 
-            // Form1
+            // chForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -67,8 +67,8 @@
             this.Controls.Add(this.svr_text);
             this.Controls.Add(this.user_text);
             this.Controls.Add(this.btn_send);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "chForm";
+            this.Text = "Chat Form";
             this.ResumeLayout(false);
             this.PerformLayout();
 

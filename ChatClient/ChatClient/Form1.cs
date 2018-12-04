@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace ChatClient
 {
-    public partial class Form1 : Form
+    public partial class chForm : Form
     {
 
-        public Form1()
+        public chForm()
         {
             InitializeComponent();
         }
