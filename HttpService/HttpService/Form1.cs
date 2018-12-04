@@ -25,22 +25,29 @@ namespace HttpService
             }
             string responseText = string.Empty;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             // 요청을 보내는 HttpWebRequest 클래스
             // 해당 클래스 상위의 WebRequest를 사용
+            // Web Request를 만드는 부분
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            // Request Method를 GET으로 설정
             request.Method = "GET";
             request.Timeout = 30 * 1000; // 30초
-            request.Headers.Add("Authorization", "BASIC SGVsbG8=");
             // 헤더 추가 방법
+            request.Headers.Add("Authorization", "BASIC SGVsbG8=");
 
+            // 본인이 만든 Request 대한 Response를 받겠다는 부분
             using(HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
             {
                 HttpStatusCode status = resp.StatusCode;
-                Console.WriteLine(status);
                 // 정상이면 OK
+                Console.WriteLine(status);
                 textURL.Text = status.ToString();
 
+                // Status Code를 보고 HTML문서를 출력
+                // 여러 형태를 동일한 형태로 설정하는 Stream을 사용
                 Stream respStream = resp.GetResponseStream();
+                // Stream을 StreamReader를 이용하여 읽기 모드로 출력
+                // 쓰기모드는 StreamWriter
                 using (StreamReader sr = new StreamReader(respStream))
                 {
                     responseText = sr.ReadToEnd();
