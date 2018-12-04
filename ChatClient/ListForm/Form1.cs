@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace ListForm
 {
     public partial class lsForm : Form
     {
-        public lsForm()
+        public lsForm(string id, Socket mainSocket)
         {
             InitializeComponent();
-            string list_code = "code-400";
+            string list_code = "400";
             Console.WriteLine(list_code);
         }
     }

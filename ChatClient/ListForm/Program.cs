@@ -16,7 +16,7 @@ namespace ListForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new lsForm());
+            Application.Run();
         }
     }
 }
