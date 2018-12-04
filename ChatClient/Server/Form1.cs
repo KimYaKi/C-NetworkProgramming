@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Windows.Forms;
-using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Server
 {
@@ -94,6 +96,7 @@ namespace Server
 
             // 데이터를 받았을 때 errorCode도 함께 값을 선언한다.
             int received = obj.WorkingSocket.EndReceive(ar, out errorCode);
+            Console.WriteLine(received);
 
             // errorCode가 Success가 아니라면 received를 0으로 변환
             if(errorCode != SocketError.Success)
@@ -127,13 +130,13 @@ namespace Server
                 return;
             }
 
+            string before = Encoding.UTF8.GetString(obj.Buffer).Trim('\0');
             // 텍스트로 변환한다.
-            string text = Encoding.UTF8.GetString(obj.Buffer);
-            // AppendText(txtHistory, text);
 
-            // : 기준으로 짜른다.
-            // tokens[0] - 보낸 사람 ID
-            // tokens[1] - 보낸 메세지
+            string text = AES_decrypt(before, "01234567890123456789012345678901");
+
+            // AppendText(txtHistory, text);
+            MessageBox.Show(before+"\n"+text);
             AppendText(txtHistory, text);
             byte[] msgBuff = null;
             string[] recv_text = text.Split('/');
@@ -215,8 +218,6 @@ namespace Server
             {
                 obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
             }
-            
-
         }
 
         void sendTo(Socket socket, byte[] buffer)
@@ -303,6 +304,72 @@ namespace Server
             AppendText(txtHistory, string.Format("서버 시작: @{0}", serverEP));
             // 비동기적으로 클라이언트의 연결 요청을 받는다.
             mainSock.BeginAccept(AcceptCallback, null);
+        }
+
+        //-------------------------------------------------------------------------------------------------
+        // 참고 사이트 https://zoonvivor.tistory.com/18
+        //AES256 암호화
+        public string AES_encrypt(string Input, string key)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.KeySize = 256;
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Key = Encoding.UTF8.GetBytes(key);
+            aes.IV = Encoding.UTF8.GetBytes("0123456789012345");
+
+            var encrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+                using (var cs = new CryptoStream(ms, encrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Encoding.UTF8.GetBytes(Input);
+
+                    cs.Write(xXml, 0, xXml.Length);
+                }
+
+                xBuff = ms.ToArray();
+                string recvdata = Encoding.Default.GetString(xBuff);
+                AppendText(txtHistory, "AES256 : " + recvdata);
+                //tbDebug.Text += "\r\n\r\nAES256 ( SEND DATA ) : " + recvdata;
+            }
+
+            string Output = Convert.ToBase64String(xBuff);
+            return Output;
+        }
+        //AES 256 복호화
+        public string AES_decrypt(string Input, string key)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.KeySize = 256;
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Key = Encoding.UTF8.GetBytes(key);
+            aes.IV = Encoding.UTF8.GetBytes("0123456789012345");
+
+            var decrypt = aes.CreateDecryptor();
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+
+                using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Convert.FromBase64String(Input);
+                    string recvdata = Encoding.Default.GetString(xXml);
+                    //tbDebug.Text += "\r\n\r\nAES256 ( RECEIVE DATA ) : " + recvdata;
+                    AppendText(txtHistory, "AES256 : " + recvdata);
+
+                    cs.Write(xXml, 0, xXml.Length);
+                }
+
+                xBuff = ms.ToArray();
+            }
+
+            string Output = Encoding.UTF8.GetString(xBuff);
+            return Output;
         }
     }
 }

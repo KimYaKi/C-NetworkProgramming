@@ -1,7 +1,9 @@
 ﻿using ListForm;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -65,8 +67,11 @@ namespace LoginForm
         {
             try
             {
+                string data = AES_encrypt(protocol, "01234567890123456789012345678901");
                 // 문자열을 utf8 형식의 바이트로 변환한다.
-                byte[] bDts = Encoding.UTF8.GetBytes(protocol);
+                byte[] bDts = Encoding.UTF8.GetBytes(data);
+
+                MessageBox.Show(data);
 
                 // 서버에 전송한다.
                 mainSock.Send(bDts);
@@ -128,7 +133,10 @@ namespace LoginForm
 
         private void lgForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string data = "500/" + id_text.Text + "/";
+            string protocol = "500/" + id_text.Text + "/";
+
+            string data = AES_encrypt(protocol, "01234567890123456789012345678901");
+
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = Encoding.UTF8.GetBytes(data);
 
@@ -138,6 +146,71 @@ namespace LoginForm
                 // 서버에 전송한다.
                 mainSock.Send(bDts);
             }
+        }
+
+        //-------------------------------------------------------------------------------------------------
+        //AES256 암호화
+        public string AES_encrypt(string Input, string key)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.KeySize = 256;
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Key = Encoding.UTF8.GetBytes(key);
+            aes.IV = Encoding.UTF8.GetBytes("0123456789012345");
+
+            var encrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+                using (var cs = new CryptoStream(ms, encrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Encoding.UTF8.GetBytes(Input);
+
+                    cs.Write(xXml, 0, xXml.Length);
+                }
+
+                xBuff = ms.ToArray();
+                string recvdata = Encoding.Default.GetString(xBuff);
+                //AppendText(txtHistory, "AES256 : " + recvdata);
+                //tbDebug.Text += "\r\n\r\nAES256 ( SEND DATA ) : " + recvdata;
+            }
+
+            string Output = Convert.ToBase64String(xBuff);
+            return Output;
+        }
+        //AES 256 복호화
+        public string AES_decrypt(string Input, string key)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.KeySize = 256;
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Key = Encoding.UTF8.GetBytes(key);
+            aes.IV = Encoding.UTF8.GetBytes("0123456789012345");
+
+            var decrypt = aes.CreateDecryptor();
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+
+                using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Convert.FromBase64String(Input);
+                    string recvdata = Encoding.Default.GetString(xXml);
+                    //tbDebug.Text += "\r\n\r\nAES256 ( RECEIVE DATA ) : " + recvdata;
+                    //AppendText(txtHistory, "AES256 : " + recvdata);
+
+                    cs.Write(xXml, 0, xXml.Length);
+                }
+
+                xBuff = ms.ToArray();
+            }
+
+            string Output = Encoding.UTF8.GetString(xBuff);
+            return Output;
         }
     }
 }
