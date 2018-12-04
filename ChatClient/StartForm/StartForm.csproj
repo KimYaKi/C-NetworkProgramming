@@ -84,6 +84,10 @@
       <Project>{b18df176-f3ab-4cd6-ba60-0eb47072c5e4}</Project>
       <Name>LoginForm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegisterForm\RegisterForm.csproj">
+      <Project>{30fc534b-4305-466d-89da-38ff4adea720}</Project>
+      <Name>RegisterForm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

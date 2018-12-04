@@ -14,11 +14,14 @@ namespace StartForm
         {
             LoginForm.lgForm lg = new LoginForm.lgForm();
             lg.Show();
+            this.Hide();
         }
 
         private void btn_register_Click(object sender, EventArgs e)
         {
-
+            RegisterForm.regForm rg = new RegisterForm.regForm();
+            rg.Show();
+            this.Hide();
         }
     }
 }
