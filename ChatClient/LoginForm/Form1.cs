@@ -133,19 +133,7 @@ namespace LoginForm
 
         private void lgForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string protocol = "500/" + id_text.Text + "/";
 
-            string data = AES_encrypt(protocol, "01234567890123456789012345678901");
-
-            // 문자열을 utf8 형식의 바이트로 변환한다.
-            byte[] bDts = Encoding.UTF8.GetBytes(data);
-
-            Console.WriteLine(data);
-            if (mainSock.Connected)
-            {
-                // 서버에 전송한다.
-                mainSock.Send(bDts);
-            }
         }
 
         //-------------------------------------------------------------------------------------------------
