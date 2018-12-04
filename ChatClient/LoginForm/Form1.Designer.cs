@@ -1,6 +1,6 @@
 ﻿namespace LoginForm
 {
-    partial class Form1
+    partial class lgForm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -30,9 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pwd_text = new System.Windows.Forms.TextBox();
+            this.id_text = new System.Windows.Forms.TextBox();
+            this.btn_login = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -55,45 +55,49 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Password";
             // 
-            // textBox1
+            // pwd_text
             // 
-            this.textBox1.Font = new System.Drawing.Font("굴림", 13F);
-            this.textBox1.Location = new System.Drawing.Point(155, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(251, 32);
-            this.textBox1.TabIndex = 1;
+            this.pwd_text.Font = new System.Drawing.Font("굴림", 13F);
+            this.pwd_text.Location = new System.Drawing.Point(155, 87);
+            this.pwd_text.Name = "pwd_text";
+            this.pwd_text.PasswordChar = '●';
+            this.pwd_text.Size = new System.Drawing.Size(251, 32);
+            this.pwd_text.TabIndex = 1;
+            this.pwd_text.Text = "1234";
             // 
-            // textBox2
+            // id_text
             // 
-            this.textBox2.Font = new System.Drawing.Font("굴림", 13F);
-            this.textBox2.Location = new System.Drawing.Point(155, 77);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '●';
-            this.textBox2.Size = new System.Drawing.Size(251, 32);
-            this.textBox2.TabIndex = 1;
+            this.id_text.Font = new System.Drawing.Font("굴림", 13F);
+            this.id_text.Location = new System.Drawing.Point(155, 26);
+            this.id_text.Name = "id_text";
+            this.id_text.Size = new System.Drawing.Size(251, 32);
+            this.id_text.TabIndex = 1;
+            this.id_text.Text = "test";
             // 
-            // button1
+            // btn_login
             // 
-            this.button1.Font = new System.Drawing.Font("Rage Italic", 13F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(43, 134);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(363, 36);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_login.Font = new System.Drawing.Font("Rage Italic", 13F, System.Drawing.FontStyle.Bold);
+            this.btn_login.Location = new System.Drawing.Point(43, 150);
+            this.btn_login.Name = "btn_login";
+            this.btn_login.Size = new System.Drawing.Size(363, 36);
+            this.btn_login.TabIndex = 2;
+            this.btn_login.Text = "Login";
+            this.btn_login.UseVisualStyleBackColor = true;
+            this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
-            // Form1
+            // lgForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 214);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btn_login);
+            this.Controls.Add(this.id_text);
+            this.Controls.Add(this.pwd_text);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "lgForm";
+            this.Text = "Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.lgForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,9 +107,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox pwd_text;
+        private System.Windows.Forms.TextBox id_text;
+        private System.Windows.Forms.Button btn_login;
     }
 }
 
