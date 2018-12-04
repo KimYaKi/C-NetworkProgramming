@@ -57,21 +57,28 @@ namespace HttpService
             textBoxWeb.Text = responseText;
         }
 
+        // Client에서 Server로 Data를 전송할 때에는 POST를 사용
         private void buttonPost_Click(object sender, EventArgs e)
         {
+            // POST를 전송하기 위한 형태
             string data = "{ \"id\": \"" + textBoxID.Text + "\", \"name\" : \"" + textBoxName.Text + "\" }";
 
+            // Request를 생성
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://httpbin.org/post");
+            // Method는 POST
             request.Method = "POST";
+            // ContentType은 JSON형식
             request.ContentType = "application/json";
             request.Timeout = 30 * 1000;
             // request.Headers.Add("Authorization", "BASIC SGVsbG8=");
 
             // POST할 데이터를 Request Stream에 쓴다
+            // Encoding형식은 영어만 입력 했기 때문에 ASCII형식으로 변환
             byte[] bytes = Encoding.ASCII.GetBytes(data);
-            request.ContentLength = bytes.Length;
             // 전송 할 바이트 수 지정
+            request.ContentLength = bytes.Length;
 
+            // Header만 보내는 것이 아닌 Data를 보내야 하기 때문에 값을 생성해서 전송 해야 함
             using (Stream reqStream = request.GetRequestStream())
             {
                 reqStream.Write(bytes, 0, bytes.Length);
@@ -92,6 +99,7 @@ namespace HttpService
             textBoxPost.Text = responseText;
         }
 
+        // 그림에 대한 Request 메소드
         private void buttonImageDown_Click(object sender, EventArgs e)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://httpbin.org/image/png");
