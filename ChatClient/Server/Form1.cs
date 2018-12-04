@@ -25,10 +25,6 @@ namespace Server
             _textAppender = new AppendTextDelegate(AppendText);
             connectedClients = new Dictionary<string, Socket>();
             clientNum = 0; //초기화
-            foreach (KeyValuePair<string, Socket> clients in connectedClients)
-            {
-                AppendText(txtHistory, string.Format("{0} : {1}", clients.Key, clients.Value));
-            }
         }
 
         // 텍스트 추가 메소드 (데이터를 받으면 TextBox에 출력 해 준다.)
@@ -44,15 +40,7 @@ namespace Server
 
         private void OnServerLoaded(object sender, EventArgs e)
         {
-            IPHostEntry he = Dns.GetHostEntry(Dns.GetHostName());
 
-            foreach (IPAddress addr in he.AddressList)
-            {
-                if (addr.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    AppendText(txtHistory, addr.ToString());
-                }
-            }
         }
 
 
@@ -153,7 +141,7 @@ namespace Server
             {
                 // 회원가입
                 case "100":
-                    connectedClients.TryGetValue(id, out socket);
+                    
                     break;
 
                 // 로그인
@@ -190,11 +178,12 @@ namespace Server
 
                 // 채팅
                 case "300":
-                    connectedClients.TryGetValue(id, out socket);
+
                     break;
 
+                // 종료
                 case "500":
-                    sendingMsg = "501/";
+                    sendingMsg = "501/End/";
                     connectedClients.TryGetValue(id, out socket);
                     msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
                     connectedClients.Remove(id);
@@ -257,13 +246,8 @@ namespace Server
             }
 
             // 보낼 텍스트
-            string tts = txtTTS.Text.Trim();
-            if (string.IsNullOrEmpty(tts))
-            {
-                MsgBoxHelper.Warn("텍스트가 입력되지 않았습니다!");
-                txtTTS.Focus();
-                return;
-            }
+            string tts = "ABCD".Trim();
+            
 
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = Encoding.UTF8.GetBytes("Server" + ':' + tts);
@@ -273,27 +257,14 @@ namespace Server
 
             // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
             AppendText(txtHistory, string.Format("[보냄]server: {0}", tts));
-            txtTTS.Clear();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             
             int port;
-            if (!int.TryParse(txtPort.Text, out port))
-            { //문자열을 int port로 변환
-                MsgBoxHelper.Error("포트 번호가 잘못 입력되었거나 입력되지 않았습니다.");
-                txtPort.Focus();
-                txtPort.SelectAll();
-                return;
-            }
-
-            thisAddress = IPAddress.Parse(txtAddress.Text);
-            if (thisAddress == null)
-            {// 로컬호스트 주소를 사용한다.                
-                thisAddress = IPAddress.Loopback;
-                txtAddress.Text = thisAddress.ToString();
-            }
+            int.TryParse("15000", out port);
+            thisAddress = IPAddress.Parse("210.123.254.197");
 
             // 서버에서 클라이언트의 연결 요청을 대기하기 위해
             // 소켓을 열어둔다.
@@ -305,6 +276,7 @@ namespace Server
             // 비동기적으로 클라이언트의 연결 요청을 받는다.
             mainSock.BeginAccept(AcceptCallback, null);
         }
+
 
         //-------------------------------------------------------------------------------------------------
         // 참고 사이트 https://zoonvivor.tistory.com/18

@@ -28,105 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tblMainLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.txtTTS = new System.Windows.Forms.TextBox();
-            this.lblTTS = new System.Windows.Forms.Label();
-            this.lblAddress = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.btnStart = new System.Windows.Forms.Button();
             this.txtHistory = new System.Windows.Forms.TextBox();
-            this.btnSend = new System.Windows.Forms.Button();
-            this.lblPort = new System.Windows.Forms.Label();
-            this.txtPort = new System.Windows.Forms.TextBox();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.tblMainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tblMainLayout.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tblMainLayout
-            // 
-            this.tblMainLayout.ColumnCount = 5;
-            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tblMainLayout.Controls.Add(this.txtTTS, 1, 2);
-            this.tblMainLayout.Controls.Add(this.lblTTS, 0, 2);
-            this.tblMainLayout.Controls.Add(this.lblAddress, 0, 0);
-            this.tblMainLayout.Controls.Add(this.txtAddress, 1, 0);
-            this.tblMainLayout.Controls.Add(this.btnStart, 4, 0);
-            this.tblMainLayout.Controls.Add(this.txtHistory, 0, 1);
-            this.tblMainLayout.Controls.Add(this.btnSend, 4, 2);
-            this.tblMainLayout.Controls.Add(this.lblPort, 2, 0);
-            this.tblMainLayout.Controls.Add(this.txtPort, 3, 0);
-            this.tblMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblMainLayout.Location = new System.Drawing.Point(0, 0);
-            this.tblMainLayout.Name = "tblMainLayout";
-            this.tblMainLayout.Padding = new System.Windows.Forms.Padding(8);
-            this.tblMainLayout.RowCount = 3;
-            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tblMainLayout.Size = new System.Drawing.Size(588, 494);
-            this.tblMainLayout.TabIndex = 2;
-            // 
-            // txtTTS
-            // 
-            this.tblMainLayout.SetColumnSpan(this.txtTTS, 3);
-            this.txtTTS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtTTS.Location = new System.Drawing.Point(112, 456);
-            this.txtTTS.Margin = new System.Windows.Forms.Padding(4, 2, 3, 3);
-            this.txtTTS.MaxLength = 260;
-            this.txtTTS.Name = "txtTTS";
-            this.txtTTS.Size = new System.Drawing.Size(365, 25);
-            this.txtTTS.TabIndex = 7;
-            // 
-            // lblTTS
-            // 
-            this.lblTTS.AutoSize = true;
-            this.lblTTS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTTS.Location = new System.Drawing.Point(9, 455);
-            this.lblTTS.Margin = new System.Windows.Forms.Padding(1);
-            this.lblTTS.Name = "lblTTS";
-            this.lblTTS.Size = new System.Drawing.Size(98, 30);
-            this.lblTTS.TabIndex = 6;
-            this.lblTTS.Text = "보낼 텍스트";
-            this.lblTTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblAddress
-            // 
-            this.lblAddress.AutoSize = true;
-            this.lblAddress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAddress.Location = new System.Drawing.Point(9, 9);
-            this.lblAddress.Margin = new System.Windows.Forms.Padding(1);
-            this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(98, 30);
-            this.lblAddress.TabIndex = 0;
-            this.lblAddress.Text = "서버 주소";
-            this.lblAddress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.BackColor = System.Drawing.Color.White;
-            this.txtAddress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAddress.Location = new System.Drawing.Point(112, 10);
-            this.txtAddress.Margin = new System.Windows.Forms.Padding(4, 2, 3, 3);
-            this.txtAddress.MaxLength = 260;
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(165, 25);
-            this.txtAddress.TabIndex = 1;
-            this.txtAddress.Text = "210.123.254.197";
-            // 
-            // btnStart
-            // 
-            this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStart.Location = new System.Drawing.Point(481, 9);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(1);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(98, 30);
-            this.btnStart.TabIndex = 4;
-            this.btnStart.Text = "시작";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // txtHistory
             // 
@@ -139,42 +45,43 @@
             this.txtHistory.Name = "txtHistory";
             this.txtHistory.ReadOnly = true;
             this.txtHistory.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHistory.Size = new System.Drawing.Size(566, 408);
+            this.txtHistory.Size = new System.Drawing.Size(566, 440);
             this.txtHistory.TabIndex = 5;
             // 
-            // btnSend
+            // btnStart
             // 
-            this.btnSend.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSend.Location = new System.Drawing.Point(481, 455);
-            this.btnSend.Margin = new System.Windows.Forms.Padding(1);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(98, 30);
-            this.btnSend.TabIndex = 8;
-            this.btnSend.Text = "보내기";
-            this.btnSend.UseVisualStyleBackColor = true;
+            this.tblMainLayout.SetColumnSpan(this.btnStart, 5);
+            this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStart.Location = new System.Drawing.Point(9, 9);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(1);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(570, 30);
+            this.btnStart.TabIndex = 4;
+            this.btnStart.Text = "시작";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // lblPort
+            // tblMainLayout
             // 
-            this.lblPort.AutoSize = true;
-            this.lblPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPort.Location = new System.Drawing.Point(281, 9);
-            this.lblPort.Margin = new System.Windows.Forms.Padding(1);
-            this.lblPort.Name = "lblPort";
-            this.lblPort.Size = new System.Drawing.Size(98, 30);
-            this.lblPort.TabIndex = 2;
-            this.lblPort.Text = "포트 번호";
-            this.lblPort.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtPort
-            // 
-            this.txtPort.Dock = System.Windows.Forms.DockStyle.Right;
-            this.txtPort.Location = new System.Drawing.Point(384, 10);
-            this.txtPort.Margin = new System.Windows.Forms.Padding(4, 2, 3, 3);
-            this.txtPort.MaxLength = 5;
-            this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(93, 25);
-            this.txtPort.TabIndex = 3;
-            this.txtPort.Text = "15000";
+            this.tblMainLayout.ColumnCount = 5;
+            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblMainLayout.Controls.Add(this.btnStart, 0, 0);
+            this.tblMainLayout.Controls.Add(this.txtHistory, 0, 1);
+            this.tblMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblMainLayout.Location = new System.Drawing.Point(0, 0);
+            this.tblMainLayout.Name = "tblMainLayout";
+            this.tblMainLayout.Padding = new System.Windows.Forms.Padding(8);
+            this.tblMainLayout.RowCount = 2;
+            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblMainLayout.Size = new System.Drawing.Size(588, 494);
+            this.tblMainLayout.TabIndex = 2;
             // 
             // serverForm
             // 
@@ -192,17 +99,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel tblMainLayout;
-        private System.Windows.Forms.TextBox txtTTS;
-        private System.Windows.Forms.Label lblTTS;
-        private System.Windows.Forms.Label lblAddress;
-        private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.TextBox txtHistory;
-        private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.Label lblPort;
-        private System.Windows.Forms.TextBox txtPort;
+        private System.Windows.Forms.TableLayoutPanel tblMainLayout;
+        private System.Windows.Forms.Button btnStart;
     }
 }
 
