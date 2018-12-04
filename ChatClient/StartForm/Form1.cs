@@ -12,16 +12,18 @@ namespace StartForm
 
         private void btn_login_Click(object sender, EventArgs e)
         {
-            LoginForm.lgForm lg = new LoginForm.lgForm();
-            lg.Show();
             this.Hide();
+            LoginForm.lgForm lg = new LoginForm.lgForm();
+            lg.ShowDialog();
+            this.Show();
         }
 
         private void btn_register_Click(object sender, EventArgs e)
         {
-            RegisterForm.regForm rg = new RegisterForm.regForm();
-            rg.Show();
             this.Hide();
+            RegisterForm.regForm rg = new RegisterForm.regForm();
+            rg.ShowDialog();
+            this.Show();
         }
     }
 }
