@@ -117,22 +117,24 @@ namespace Server
                 
                 return;
             }
-
-            string before = Encoding.UTF8.GetString(obj.Buffer).Trim('\0');
             // 텍스트로 변환한다.
-
+            string before = Encoding.UTF8.GetString(obj.Buffer).Trim('\0');
+            
+            // 암호화 된 데이터 복호화 작업
+            // Key 값은 32비트 값
             string text = AES_decrypt(before, "01234567890123456789012345678901");
-
-            // AppendText(txtHistory, text);
-            MessageBox.Show(before+"\n"+text);
-            AppendText(txtHistory, text);
-            byte[] msgBuff = null;
+            
+            // 복호화 된 데이터를 '/'을 기준으로 배열로 분할
             string[] recv_text = text.Split('/');
+            // 항상 데이터의 0번째와 1번째는
+            // 상태 코드, id가 각각 들어간다.
             string state_code = recv_text[0];
             string id = recv_text[1];
+
+            // 전송받은 데이터에 대한 ACK를 보내기 위한 변수
             string sendingMsg;
-            
-            // 연결된 클라이언트 리스트에 추가해준다.
+            // 기번 버퍼 초기화
+            byte[] msgBuff = null;
             
             Socket socket = null;
 
@@ -153,26 +155,33 @@ namespace Server
                     // ID 체크 하는 부분
                     if (id.Equals("test"))
                     {
+                        // 리스트에 추가하는 부분은 로그인 시에만 하면 됨
                         connectedClients.Add(id, obj.WorkingSocket);
+                        // 현제 id(key)에 해당하는 Socket값을 socket변수에 반환 시켜 줌
                         connectedClients.TryGetValue(id, out socket);
-                        // 연결된 클라이언트 리스트에 추가해준다.
+                        // 로그인 성공 메시지
                         sendingMsg = "201/Success/Success/";
+                        // TextBox에 메시지 출력
                         AppendText(txtHistory, sendingMsg);
+                        // 전송 할 메시지를 UTF8로 인코딩
                         msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
-                        
+                        // 현제 Socket값에 메시지 전송
                         sendTo(socket, msgBuff);
 
                     }
                     else
                     {
+                        // 로그인 실패 메시지
+                        // 로그인 실패시에는 ID를 Dic에 추가하지 않는다.
                         sendingMsg = "202/Failed/Failed/";
+                        // 실패 메시지 출력
                         AppendText(txtHistory, sendingMsg);
+                        // 메시지를 UTF8로 인코딩
                         msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
+                        // 현제 접속한 Socket에 메시지 전송
                         sendTo(obj.WorkingSocket, msgBuff);
-
+                        // 로그인에 실패한 소켓 값은 닫는다.
                         obj.WorkingSocket.Close();
-                        //connectedClients.Remove(id);
-                        //AppendText(txtHistory, string.Format("접속해제완료:{0}", id));
                     }
                     break;
 
