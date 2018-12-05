@@ -120,6 +120,7 @@ namespace LoginForm
 
                 // 수신 대기
                 obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
+
                 //this.Hide();
                 //new lsForm(id_text.Text,mainSock).ShowDialog();
                 //this.ShowDialog();
@@ -127,13 +128,21 @@ namespace LoginForm
             else
             {
                 MessageBox.Show("로그인 실패");
+                // 로그인에 실패하면 Socket이 닫히기 때문에 다시 생성 시켜주어야 한다.
                 mainSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
             }
         }
 
         private void lgForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            string endMsg = "500/End/";
+            string data = AES_encrypt(endMsg, "01234567890123456789012345678901");
+            byte[] bDts = Encoding.UTF8.GetBytes(data);
 
+            if (mainSock.Connected)
+            {
+                mainSock.Close();
+            }
         }
 
         //-------------------------------------------------------------------------------------------------
