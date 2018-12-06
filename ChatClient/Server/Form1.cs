@@ -301,7 +301,7 @@ namespace Server
             
             int port;
             int.TryParse("15000", out port);
-            thisAddress = IPAddress.Parse("127.0.0.1");
+            thisAddress = IPAddress.Parse("210.123.254.197");
 
             // 서버에서 클라이언트의 연결 요청을 대기하기 위해
             // 소켓을 열어둔다.
