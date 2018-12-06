@@ -117,7 +117,6 @@
             this.Controls.Add(this.label1);
             this.Name = "regForm";
             this.Text = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.regForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

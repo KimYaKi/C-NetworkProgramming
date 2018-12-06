@@ -18,9 +18,6 @@ namespace Server
         Dictionary<string, Socket> connectedClients;
         int clientNum;
 
-        Dictionary<string, string> ClientList;
-
-
         public serverForm()
         {
             InitializeComponent();
@@ -28,7 +25,6 @@ namespace Server
             _textAppender = new AppendTextDelegate(AppendText);
             connectedClients = new Dictionary<string, Socket>();
             clientNum = 0; //초기화
-            ClientList = new Dictionary<string, string>();
         }
 
         // 텍스트 추가 메소드 (데이터를 받으면 TextBox에 출력 해 준다.)
@@ -44,13 +40,7 @@ namespace Server
 
         private void OnServerLoaded(object sender, EventArgs e)
         {
-            new ClientChk(ClientList);
-            string value;
-            
-            foreach (var id in ClientList.Keys)
-            {
-                Console.WriteLine("{0} : {1}", id, ClientList[id]);
-            }
+
         }
 
 
@@ -94,6 +84,7 @@ namespace Server
 
             // 데이터를 받았을 때 errorCode도 함께 값을 선언한다.
             int received = obj.WorkingSocket.EndReceive(ar, out errorCode);
+            Console.WriteLine(received);
 
             // errorCode가 Success가 아니라면 received를 0으로 변환
             if(errorCode != SocketError.Success)
@@ -158,7 +149,6 @@ namespace Server
                 // 로그인
                 case "200":
                     string pwd = recv_text[2];
-                    // 클라이언트 수 증가
                     clientNum++;
                     AppendText(txtHistory, string.Format("[접속{0}]ID:{1}:{2}",
                                clientNum, id, obj.WorkingSocket.RemoteEndPoint.ToString()));
@@ -170,19 +160,20 @@ namespace Server
                         // 현제 id(key)에 해당하는 Socket값을 socket변수에 반환 시켜 줌
                         connectedClients.TryGetValue(id, out socket);
                         // 로그인 성공 메시지
-                        sendingMsg = "201/Success/로그인 성공/";
+                        sendingMsg = "201/Success/Success/";
                         // TextBox에 메시지 출력
                         AppendText(txtHistory, sendingMsg);
                         // 전송 할 메시지를 UTF8로 인코딩
                         msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
                         // 현제 Socket값에 메시지 전송
                         sendTo(socket, msgBuff);
+
                     }
                     else
                     {
                         // 로그인 실패 메시지
                         // 로그인 실패시에는 ID를 Dic에 추가하지 않는다.
-                        sendingMsg = "202/Failed/로그인 실패/";
+                        sendingMsg = "202/Failed/Failed/";
                         // 실패 메시지 출력
                         AppendText(txtHistory, sendingMsg);
                         // 메시지를 UTF8로 인코딩
@@ -198,7 +189,7 @@ namespace Server
                 case "300":
                     if (true)
                     {
-                        sendingMsg = "301/Success/회원가입 성공/";
+                        sendingMsg = "301/Success/Success/";
                         AppendText(txtHistory, sendingMsg);
                         msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
                         sendTo(obj.WorkingSocket, msgBuff);
@@ -206,11 +197,7 @@ namespace Server
                     }
                     else
                     {
-                        sendingMsg = "302/Failed/회원가입 실패/";
-                        AppendText(txtHistory, sendingMsg);
-                        msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
-                        sendTo(obj.WorkingSocket, msgBuff);
-                        obj.WorkingSocket.Close();
+
                     }
                     break;
 

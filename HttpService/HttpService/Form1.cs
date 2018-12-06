@@ -102,9 +102,7 @@ namespace HttpService
         // 그림에 대한 Request 메소드
         private void buttonImageDown_Click(object sender, EventArgs e)
         {
-            // Image에 대한 file을 요청
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://httpbin.org/image/png");
-            // Method는 GET 방식
             request.Method = "GET";
 
             // Response 바이너리 데이터 처리. 이미지 파일로 저장
