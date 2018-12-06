@@ -19,6 +19,9 @@ namespace TcpCltSync
             {
                 // IPHostEntry remote = Dns.GetHostEntry(hostName);
                 IPAddress remoteIP = IPAddress.Parse("210.123.254.197");
+
+                IPAddress adAddr2 = new IPAddress(new byte[] { 210, 123, 254, 197 });
+                Console.WriteLine(adAddr2);
                 IPEndPoint remoteEnd = new IPEndPoint(remoteIP, portNumber);
 
                 Socket ctSocket = new Socket(AddressFamily.InterNetwork,
