@@ -1,15 +1,19 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Server
 {
-    class ClientChk
+    public class ClientChk
     {
-        string[] client = File.ReadAllLines(@"ClientText.txt");
-
+        public ClientChk(Dictionary<string,string> List)
+        {
+            string[] clientList = File.ReadAllLines(@"..\..\ClientText.txt");
+            foreach (string show in clientList)
+            {
+                string[] data = show.Split('/');
+                List.Add(data[0], data[1]);
+            }
+        }
     }
 }
