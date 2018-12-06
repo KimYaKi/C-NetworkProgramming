@@ -71,8 +71,6 @@ namespace LoginForm
                 // 문자열을 utf8 형식의 바이트로 변환한다.
                 byte[] bDts = Encoding.UTF8.GetBytes(data);
 
-                MessageBox.Show(data);
-
                 // 서버에 전송한다.
                 mainSock.Send(bDts);
 
@@ -102,13 +100,13 @@ namespace LoginForm
 
             // 텍스트로 변환한다.
             string text = Encoding.UTF8.GetString(obj.Buffer);
-
-            Console.WriteLine(text);
-
+            
             string[] recv_data = text.Split('/');
             string state_code = recv_data[0];
+            string title = recv_data[1];
+            string msg = recv_data[2];
             if (state_code.Equals("201")){
-                MessageBox.Show("로그인 성공");
+                MessageBox.Show(msg, title);
                 // 텍스트박스에 추가해준다.
                 // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
                 // 따라서 대리자를 통해 처리한다.
@@ -122,12 +120,11 @@ namespace LoginForm
                 obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
 
                 //this.Hide();
-                //new lsForm(id_text.Text,mainSock).ShowDialog();
-                //this.ShowDialog();
+                new lsForm(id_text.Text,mainSock).ShowDialog();
             }
             else
             {
-                MessageBox.Show("로그인 실패");
+                MessageBox.Show(msg, title);
                 // 로그인에 실패하면 Socket이 닫히기 때문에 다시 생성 시켜주어야 한다.
                 mainSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
             }
@@ -170,8 +167,6 @@ namespace LoginForm
 
                 xBuff = ms.ToArray();
                 string recvdata = Encoding.Default.GetString(xBuff);
-                //AppendText(txtHistory, "AES256 : " + recvdata);
-                //tbDebug.Text += "\r\n\r\nAES256 ( SEND DATA ) : " + recvdata;
             }
 
             string Output = Convert.ToBase64String(xBuff);
@@ -197,9 +192,6 @@ namespace LoginForm
                 {
                     byte[] xXml = Convert.FromBase64String(Input);
                     string recvdata = Encoding.Default.GetString(xXml);
-                    //tbDebug.Text += "\r\n\r\nAES256 ( RECEIVE DATA ) : " + recvdata;
-                    //AppendText(txtHistory, "AES256 : " + recvdata);
-
                     cs.Write(xXml, 0, xXml.Length);
                 }
 
