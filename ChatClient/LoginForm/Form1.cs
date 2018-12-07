@@ -1,4 +1,5 @@
-﻿using ListForm;
+﻿using ChatClient;
+using ListForm;
 using System;
 using System.IO;
 using System.Net;
@@ -11,7 +12,6 @@ namespace LoginForm
 {
     public partial class lgForm : Form
     {
-        delegate void AppendTextDelegate(Control ctrl, string s);
         Socket mainSock;
         IPAddress thisAddress = IPAddress.Parse("210.123.254.197");
         string nameID;
@@ -97,14 +97,22 @@ namespace LoginForm
                 obj.WorkingSocket.Close();
                 return;
             }
-
             // 텍스트로 변환한다.
-            string text = Encoding.UTF8.GetString(obj.Buffer);
-            
+            string before = Encoding.UTF8.GetString(obj.Buffer).Trim('\0');
+
+            // 암호화 된 데이터 복호화 작업
+            // Key 값은 32비트 값
+            string text = AES_decrypt(before, "01234567890123456789012345678901");
+
+            // 전송받은 메시지를 '/'기준으로 나눔
             string[] recv_data = text.Split('/');
+            // 전송받은 메시지 코드
             string state_code = recv_data[0];
+            // 전송받은 메시지의 타이틀
             string title = recv_data[1];
+            // 전송받은 메시지의 내용
             string msg = recv_data[2];
+
             if (state_code.Equals("201")){
                 MessageBox.Show(msg, title);
                 // 텍스트박스에 추가해준다.
@@ -116,11 +124,8 @@ namespace LoginForm
                 // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
                 obj.ClearBuffer();
 
-                // 수신 대기
-                obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
-
                 //this.Hide();
-                new lsForm(id_text.Text,mainSock).ShowDialog();
+                new chForm(id_text.Text,mainSock).ShowDialog();
             }
             else
             {
