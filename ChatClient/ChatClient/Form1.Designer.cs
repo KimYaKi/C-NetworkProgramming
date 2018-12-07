@@ -30,7 +30,7 @@
         {
             this.btn_send = new System.Windows.Forms.Button();
             this.user_text = new System.Windows.Forms.TextBox();
-            this.svr_text = new System.Windows.Forms.TextBox();
+            this.txtHistory = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btn_send
@@ -51,20 +51,20 @@
             this.user_text.Size = new System.Drawing.Size(381, 29);
             this.user_text.TabIndex = 1;
             // 
-            // svr_text
+            // txtHistory
             // 
-            this.svr_text.Location = new System.Drawing.Point(12, 12);
-            this.svr_text.Multiline = true;
-            this.svr_text.Name = "svr_text";
-            this.svr_text.Size = new System.Drawing.Size(477, 380);
-            this.svr_text.TabIndex = 2;
+            this.txtHistory.Location = new System.Drawing.Point(12, 12);
+            this.txtHistory.Multiline = true;
+            this.txtHistory.Name = "txtHistory";
+            this.txtHistory.Size = new System.Drawing.Size(477, 380);
+            this.txtHistory.TabIndex = 2;
             // 
             // chForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 456);
-            this.Controls.Add(this.svr_text);
+            this.Controls.Add(this.txtHistory);
             this.Controls.Add(this.user_text);
             this.Controls.Add(this.btn_send);
             this.Name = "chForm";
@@ -78,7 +78,7 @@
 
         private System.Windows.Forms.Button btn_send;
         private System.Windows.Forms.TextBox user_text;
-        private System.Windows.Forms.TextBox svr_text;
+        private System.Windows.Forms.TextBox txtHistory;
     }
 }
 
