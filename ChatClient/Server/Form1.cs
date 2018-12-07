@@ -49,12 +49,6 @@ namespace Server
         private void OnServerLoaded(object sender, EventArgs e)
         {
             new ClientChk(ClientList);
-            string value;
-            
-            foreach (var id in ClientList.Keys)
-            {
-                Console.WriteLine("{0} : {1}", id, ClientList[id]);
-            }
         }
 
 
@@ -142,7 +136,7 @@ namespace Server
             // 상태 코드, id가 각각 들어간다.
             string state_code = recv_text[0];
             string id = recv_text[1];
-
+            string msg = null;
             // 전송받은 데이터에 대한 ACK를 보내기 위한 변수
             string sendingMsg;
             // 기번 버퍼 초기화
@@ -153,9 +147,20 @@ namespace Server
             //--------------------------------------------------------------------
             switch (state_code)
             {
-                // 회원가입
+                // Chatting
                 case "100":
-                    
+                    string ToID = recv_text[2];
+                    string data = recv_text[3];
+                    Socket toSocket;
+                    AppendText(txtHistory,string.Format("From[{0}] - To[{1}] : {2}",id,ToID,data));
+                    // 현제 id(key)에 해당하는 Socket값을 socket변수에 반환 시켜 줌
+                    connectedClients.TryGetValue(id, out socket);
+                    connectedClients.TryGetValue(ToID, out toSocket);
+                    sendingMsg = "101/"+ id + "/" + data+"/";
+                    msg = AES_encrypt(sendingMsg, "01234567890123456789012345678901");
+                    msgBuff = Encoding.UTF8.GetBytes(msg);
+                    sendTo(toSocket, msgBuff);
+
                     break;
 
                 // 로그인
@@ -166,7 +171,7 @@ namespace Server
                     AppendText(txtHistory, string.Format("[접속{0}]ID:{1}:{2}",
                                clientNum, id, obj.WorkingSocket.RemoteEndPoint.ToString()));
                     // ID 체크 하는 부분
-                    if (id.Equals("test"))
+                    if (id.Equals("test") || id.Equals("test2"))
                     {
                         // 리스트에 추가하는 부분은 로그인 시에만 하면 됨
                         connectedClients.Add(id, obj.WorkingSocket);
@@ -175,22 +180,24 @@ namespace Server
                         // 로그인 성공 메시지
                         sendingMsg = "201/Success/로그인 성공/";
                         // TextBox에 메시지 출력
+                        msg = AES_encrypt(sendingMsg, "01234567890123456789012345678901");
                         AppendText(txtHistory, sendingMsg);
                         // 전송 할 메시지를 UTF8로 인코딩
-                        msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
+                        msgBuff = Encoding.UTF8.GetBytes(msg);
                         // 현제 Socket값에 메시지 전송
                         sendTo(socket, msgBuff);
-
                     }
                     else
                     {
                         // 로그인 실패 메시지
                         // 로그인 실패시에는 ID를 Dic에 추가하지 않는다.
                         sendingMsg = "202/Failed/로그인 실패/";
+
+                        msg = AES_encrypt(sendingMsg, "01234567890123456789012345678901");
                         // 실패 메시지 출력
                         AppendText(txtHistory, sendingMsg);
                         // 메시지를 UTF8로 인코딩
-                        msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
+                        msgBuff = Encoding.UTF8.GetBytes(msg);
                         // 현제 접속한 Socket에 메시지 전송
                         sendTo(obj.WorkingSocket, msgBuff);
                         // 로그인에 실패한 소켓 값은 닫는다.
@@ -198,7 +205,7 @@ namespace Server
                     }
                     break;
 
-                // 채팅
+                // 회원가입
                 case "300":
                     if (true)
                     {
@@ -272,33 +279,10 @@ namespace Server
                 }
             }
         }
-
-        void OnSendData(object sender, EventArgs e)
-        {
-            // 서버가 대기중인지 확인한다.
-            if (!mainSock.IsBound)
-            {
-                MsgBoxHelper.Warn("서버가 실행되고 있지 않습니다!");
-                return;
-            }
-
-            // 보낼 텍스트
-            string tts = "ABCD".Trim();
-            
-
-            // 문자열을 utf8 형식의 바이트로 변환한다.
-            byte[] bDts = Encoding.UTF8.GetBytes("Server" + ':' + tts);
-
-            // 연결된 모든 클라이언트에게 전송한다.
-            sendAll(null, bDts);
-
-            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
-            AppendText(txtHistory, string.Format("[보냄]server: {0}", tts));
-        }
+        
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            
             int port;
             int.TryParse("15000", out port);
             thisAddress = IPAddress.Parse("210.123.254.197");
