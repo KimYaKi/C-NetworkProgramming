@@ -114,18 +114,16 @@ namespace LoginForm
             string msg = recv_data[2];
 
             if (state_code.Equals("201")){
+                string list = recv_data[3];
                 MessageBox.Show(msg, title);
-                // 텍스트박스에 추가해준다.
-                // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
-                // 따라서 대리자를 통해 처리한다.
-
+                MessageBox.Show(list);
 
                 // 클라이언트에선 데이터를 전달해줄 필요가 없으므로 바로 수신 대기한다.
                 // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
                 obj.ClearBuffer();
 
                 //this.Hide();
-                new chForm(id_text.Text,mainSock).ShowDialog();
+                new lsForm(id_text.Text, list, mainSock).ShowDialog();
             }
             else
             {

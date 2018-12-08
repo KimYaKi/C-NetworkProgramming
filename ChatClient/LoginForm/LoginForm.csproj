@@ -82,10 +82,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatClient\ChatClient.csproj">
-      <Project>{ce7decee-7947-4e3d-84f1-85e246f31954}</Project>
-      <Name>ChatClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ListForm\ListForm.csproj">
       <Project>{44540dda-6d32-49f2-a1c7-b3586bf65f7e}</Project>
       <Name>ListForm</Name>
