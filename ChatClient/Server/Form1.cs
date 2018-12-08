@@ -168,24 +168,36 @@ namespace Server
                     string pwd = recv_text[2];
                     // 클라이언트 수 증가
                     clientNum++;
+                    string list = "#";
                     AppendText(txtHistory, string.Format("[접속{0}]ID:{1}:{2}",
                                clientNum, id, obj.WorkingSocket.RemoteEndPoint.ToString()));
                     // ID 체크 하는 부분
-                    if (id.Equals("test") || id.Equals("test2"))
+                    if (true)
                     {
                         // 리스트에 추가하는 부분은 로그인 시에만 하면 됨
                         connectedClients.Add(id, obj.WorkingSocket);
                         // 현제 id(key)에 해당하는 Socket값을 socket변수에 반환 시켜 줌
                         connectedClients.TryGetValue(id, out socket);
+
+                        // 현제 접속중인 Client의 id를 string형태의 변수에 '#'을 기준으로 저장
+                        foreach(var name in connectedClients.Keys)
+                        {
+                            list += name + "#";
+                        }
                         // 로그인 성공 메시지
-                        sendingMsg = "201/Success/로그인 성공/";
-                        // TextBox에 메시지 출력
+                        sendingMsg = "201/Success/로그인 성공/"+list+"/";
+                        // 전송 데이터 암호화
                         msg = AES_encrypt(sendingMsg, "01234567890123456789012345678901");
+                        // TextBox에 메시지 출력
                         AppendText(txtHistory, sendingMsg);
-                        // 전송 할 메시지를 UTF8로 인코딩
+                        // 전송 할 암호화된 메시지를 UTF8로 인코딩
                         msgBuff = Encoding.UTF8.GetBytes(msg);
                         // 현제 Socket값에 메시지 전송
                         sendTo(socket, msgBuff);
+
+                        string listmsg = AES_encrypt(list, "01234567890123456789012345678901");
+                        byte[] ls = Encoding.UTF8.GetBytes(listmsg);
+                        sendAll(socket, ls);
                     }
                     else
                     {
@@ -261,7 +273,10 @@ namespace Server
             }
             catch
             {// 오류 발생하면 전송 취소
-                try { AppendText(txtHistory, "dispose"); socket.Dispose(); } catch { }
+                try {
+                    AppendText(txtHistory, "dispose");
+                    socket.Dispose();
+                } catch { }
             }
         }
 
@@ -280,7 +295,6 @@ namespace Server
             }
         }
         
-
         private void btnStart_Click(object sender, EventArgs e)
         {
             int port;
@@ -324,9 +338,6 @@ namespace Server
                 }
 
                 xBuff = ms.ToArray();
-                string recvdata = Encoding.Default.GetString(xBuff);
-                AppendText(txtHistory, "AES256 : " + recvdata);
-                //tbDebug.Text += "\r\n\r\nAES256 ( SEND DATA ) : " + recvdata;
             }
 
             string Output = Convert.ToBase64String(xBuff);
@@ -342,6 +353,7 @@ namespace Server
             aes.Padding = PaddingMode.PKCS7;
             aes.Key = Encoding.UTF8.GetBytes(key);
             aes.IV = Encoding.UTF8.GetBytes("0123456789012345");
+            
 
             var decrypt = aes.CreateDecryptor();
             byte[] xBuff = null;
@@ -352,9 +364,6 @@ namespace Server
                 {
                     byte[] xXml = Convert.FromBase64String(Input);
                     string recvdata = Encoding.Default.GetString(xXml);
-                    //tbDebug.Text += "\r\n\r\nAES256 ( RECEIVE DATA ) : " + recvdata;
-                    AppendText(txtHistory, "AES256 : " + recvdata);
-
                     cs.Write(xXml, 0, xXml.Length);
                 }
 
