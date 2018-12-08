@@ -38,6 +38,7 @@
             this.clt_list.Size = new System.Drawing.Size(488, 279);
             this.clt_list.TabIndex = 0;
             this.clt_list.UseCompatibleStateImageBehavior = false;
+            this.clt_list.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.clt_list_MouseDoubleClick);
             // 
             // lsForm
             // 
