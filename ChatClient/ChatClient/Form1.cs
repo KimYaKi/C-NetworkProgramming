@@ -15,15 +15,13 @@ namespace ChatClient
         string id;
         string ToID;
 
-        public chForm(string userID, Socket recvSocket)
+        public chForm(string userID,string toID, Socket recvSocket)
         {
             InitializeComponent();
-            this.mainSock = recvSocket;
-            this.id = userID;
-            if (id.Equals("test"))
-                ToID = "test2";
-            else if (id.Equals("test2"))
-                ToID = "test";
+            mainSock = recvSocket;
+            id = userID;
+            ToID = toID;
+            
             _textAppender = new AppendTextDelegate(AppendText);
         }
 
