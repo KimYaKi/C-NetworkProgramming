@@ -168,7 +168,7 @@ namespace Server
                     string pwd = recv_text[2];
                     // 클라이언트 수 증가
                     clientNum++;
-                    string list = "#";
+                    string list = null;
                     AppendText(txtHistory, string.Format("[접속{0}]ID:{1}:{2}",
                                clientNum, id, obj.WorkingSocket.RemoteEndPoint.ToString()));
                     // ID 체크 하는 부분
@@ -247,11 +247,9 @@ namespace Server
                     break;
             }
             //--------------------------------------------------------------------
-
             // 텍스트박스에 추가해준다.
             // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
             // 따라서 대리자를 통해 처리한다.
-            // AppendText(txtHistory, string.Format("[받음]{0}: {1}", id, msg));
             // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
             obj.ClearBuffer();
 
