@@ -11,9 +11,7 @@ namespace ListForm
 {
     public partial class lsForm : Form
     {
-        delegate void AppendTextDelegate(ListView ctrl, string[] s);
-        AppendTextDelegate _textAppender;
-
+        
         Socket mainSocket;
         string id;
         string list;
@@ -21,13 +19,16 @@ namespace ListForm
         public lsForm(string recvId, string recvList, Socket recvSocket)
         {
             InitializeComponent();
-            _textAppender = new AppendTextDelegate(AppendText);
+            clt_list.Columns.Add("test",0);
             id = recvId;
             mainSocket = recvSocket;
             list = recvList;
             client = list.Split('#');
 
-            AppendText(clt_list, client);
+            clt_list.View = View.Details;
+
+            clt_list.GridLines = true;
+            clt_list.FullRowSelect = true;
 
             // 연결 완료, 서버에서 데이터가 올 수 있으므로 수신 대기한다.
             AsyncObject obj = new AsyncObject(4096);
@@ -35,30 +36,33 @@ namespace ListForm
             mainSocket.BeginReceive(obj.Buffer, 0, obj.BufferSize, 0, DataReceived, obj);
         }
 
-        // 텍스트 추가 메소드 (데이터를 받으면 TextBox에 출력 해 준다.)
-        void AppendText(ListView ctrl, string[] s)
+        // ListView에 Client정보를 업데이트하기 위한 Delegate Invoke문
+        void InvokeList(string[] client)
         {
-            if (ctrl.InvokeRequired)
-                ctrl.Invoke(_textAppender, ctrl, s);
-            else
-            {
-                ctrl.Clear();
-
-                int userNum = 0;
-
-                foreach (var cli in s)
+            this.Invoke(new MethodInvoker(
+                delegate ()
                 {
-                    if (cli.Equals(id))
-                        break;
-                    userNum++;
-                }
+                    clt_list.Clear();
+                    clt_list.Columns.Add("Num", 100);
+                    clt_list.Columns.Add("Client", 100);
+                    int num = 0;
+                    string[] arr = new string[client.Length];
+                    foreach(var cl in client)
+                    {
+                        if(!cl.Equals(id))
+                            arr[num] = client[num];
+                        Console.WriteLine(arr[num]);
+                    }
+                    ListViewItem itm;
 
-                s = s.Where(condition => condition != s[userNum]).ToArray();
-                
-
-                var listViewItem = new ListViewItem(s);
-                ctrl.Items.Add(listViewItem);
-            }
+                    for(int i = 0; i < client.Length; i++)
+                    {
+                        arr[0] = string.Format("{0}", i + 1);
+                        arr[1] = client[i];
+                        itm = new ListViewItem(arr);
+                        clt_list.Items.Add(itm);
+                    }
+                }));
         }
 
         void DataReceived(IAsyncResult ar)
@@ -84,9 +88,11 @@ namespace ListForm
             // Key 값은 32비트 값
             string text = AES_decrypt(before, "01234567890123456789012345678901");
             client = text.Split('#');
+            Console.WriteLine(1);
 
-            AppendText(clt_list, client);
+            InvokeList(client);
 
+            Console.WriteLine(2);
             // 클라이언트에선 데이터를 전달해줄 필요가 없으므로 바로 수신 대기한다.
             // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
             obj.ClearBuffer();
@@ -174,7 +180,7 @@ namespace ListForm
             string Output = Encoding.UTF8.GetString(xBuff);
             return Output;
         }
-
+        
         private void clt_list_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if(clt_list.SelectedItems.Count == 1)
@@ -185,6 +191,11 @@ namespace ListForm
                 MessageBox.Show(toID);
                 new chForm(id, toID, mainSocket).ShowDialog();
             }
+        }
+
+        private void lsForm_Load(object sender, EventArgs e)
+        {
+            InvokeList(client);
         }
     }
 }

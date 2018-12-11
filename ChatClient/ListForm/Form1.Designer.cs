@@ -35,19 +35,19 @@
             // 
             this.clt_list.Location = new System.Drawing.Point(12, 12);
             this.clt_list.Name = "clt_list";
-            this.clt_list.Size = new System.Drawing.Size(488, 279);
+            this.clt_list.Size = new System.Drawing.Size(488, 597);
             this.clt_list.TabIndex = 0;
             this.clt_list.UseCompatibleStateImageBehavior = false;
-            this.clt_list.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.clt_list_MouseDoubleClick);
             // 
             // lsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 303);
+            this.ClientSize = new System.Drawing.Size(512, 621);
             this.Controls.Add(this.clt_list);
             this.Name = "lsForm";
             this.Text = "List Form";
+            this.Load += new System.EventHandler(this.lsForm_Load);
             this.ResumeLayout(false);
 
         }
