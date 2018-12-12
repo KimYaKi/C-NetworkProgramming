@@ -24,7 +24,6 @@ namespace ListForm
             mainSocket = recvSocket;
             list = recvList;
             client = list.Split('#');
-
             clt_list.View = View.Details;
 
             clt_list.GridLines = true;
@@ -39,86 +38,110 @@ namespace ListForm
         // ListView에 Client정보를 업데이트하기 위한 Delegate Invoke문
         void InvokeList(string[] client)
         {
-            this.Invoke(new MethodInvoker(
-                delegate ()
+            if (client != null)
+            {
+                try
                 {
-                    clt_list.Clear();
-                    clt_list.Columns.Add("Num", 100);
-                    clt_list.Columns.Add("Client", 100);
-                    int num = 0;
-                    string[] arr = new string[client.Length];
-                    foreach(var cl in client)
+                    this.Invoke(new MethodInvoker(
+                    delegate ()
                     {
-                        if(!cl.Equals(id))
-                            arr[num] = client[num];
-                        Console.WriteLine(arr[num]);
-                    }
-                    ListViewItem itm;
+                        clt_list.Clear();
+                        clt_list.Columns.Add("Client", 100);
+                        int num = 0;
+                        string[] arr = new string[client.Length];
+                        string[] arr1 = new string[client.Length];
+                        foreach (var cl in client)
+                        {
+                            if (!cl.Equals(id))
+                                arr1[num] = client[num];
+                            num++;
+                        }
+                        ListViewItem itm;
 
-                    for(int i = 0; i < client.Length; i++)
-                    {
-                        arr[0] = string.Format("{0}", i + 1);
-                        arr[1] = client[i];
-                        itm = new ListViewItem(arr);
-                        clt_list.Items.Add(itm);
-                    }
-                }));
+                        for (int i = 0; i < client.Length-1; i++)
+                        {
+                            arr[0] = arr1[i];
+                            itm = new ListViewItem(arr);
+                            clt_list.Items.Add(itm);
+                        }
+                    }));
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
         void DataReceived(IAsyncResult ar)
         {
-            // BeginReceive에서 추가적으로 넘어온 데이터를 AsyncObject 형식으로 변환한다.
-            AsyncObject obj = (AsyncObject)ar.AsyncState;
-
-            // 데이터 수신을 끝낸다.
-            int received = obj.WorkingSocket.EndReceive(ar);
-
-            // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
-            if (received <= 0)
+            if (mainSocket.Connected)
             {
-                obj.WorkingSocket.Disconnect(false);
-                obj.WorkingSocket.Close();
-                return;
-            }
+                // BeginReceive에서 추가적으로 넘어온 데이터를 AsyncObject 형식으로 변환한다.
+                AsyncObject obj = (AsyncObject)ar.AsyncState;
 
-            // 텍스트로 변환한다.
-            string before = Encoding.UTF8.GetString(obj.Buffer).Trim('\0');
+                // Socket에 Error가 있는 부분을 위한 변수
+                SocketError errorCode;
 
-            // 암호화 된 데이터 복호화 작업
-            // Key 값은 32비트 값
-            string text = AES_decrypt(before, "01234567890123456789012345678901");
-            client = text.Split('#');
-            Console.WriteLine(1);
+                // 데이터를 받았을 때 errorCode도 함께 값을 선언한다.
+                int received = obj.WorkingSocket.EndReceive(ar, out errorCode);
 
-            InvokeList(client);
+                // errorCode가 Success가 아니라면 received를 0으로 변환
+                if (errorCode != SocketError.Success)
+                {
+                    received = 0;
+                }
 
-            Console.WriteLine(2);
-            // 클라이언트에선 데이터를 전달해줄 필요가 없으므로 바로 수신 대기한다.
-            // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
-            obj.ClearBuffer();
+                // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
+                if (received <= 0)
+                {
+                    obj.WorkingSocket.Disconnect(false);
+                    obj.WorkingSocket.Close();
+                    return;
+                }
 
-            // 수신 대기
-            obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
-            
+                // 텍스트로 변환한다.
+                string before = Encoding.UTF8.GetString(obj.Buffer).Trim('\0');
 
-            //--------------------------------------------------------------------
+                // 암호화 된 데이터 복호화 작업
+                // Key 값은 32비트 값
+                string text = AES_decrypt(before, "01234567890123456789012345678901");
+                client = text.Split('#');
 
-            // 텍스트박스에 추가해준다.
-            // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
-            // 따라서 대리자를 통해 처리한다.
-            // AppendText(txtHistory, string.Format("[받음]{0}: {1}", id, msg));
-            // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
-            obj.ClearBuffer();
+                InvokeList(client);
 
-            // 수신 대기
-            if (mainSocket == null)
-            {
-                Console.WriteLine("비어있음");
-            }
-            else if (mainSocket.Connected)
-            {
+                Console.WriteLine(2);
+                // 클라이언트에선 데이터를 전달해줄 필요가 없으므로 바로 수신 대기한다.
+                // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
+                obj.ClearBuffer();
+
+                // 수신 대기
                 obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
+
+
+                //--------------------------------------------------------------------
+
+                // 텍스트박스에 추가해준다.
+                // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
+                // 따라서 대리자를 통해 처리한다.
+                // AppendText(txtHistory, string.Format("[받음]{0}: {1}", id, msg));
+                // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
+                obj.ClearBuffer();
+
+                // 수신 대기
+                if (mainSocket == null)
+                {
+                    Console.WriteLine("비어있음");
+                }
+                else if (mainSocket.Connected)
+                {
+                    obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
+                }
             }
+            else
+            {
+                Console.WriteLine("종료");
+            }
+            
         }
 
         //-------------------------------------------------------------------------------------------------
@@ -183,19 +206,28 @@ namespace ListForm
         
         private void clt_list_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if(clt_list.SelectedItems.Count == 1)
+            if (clt_list.SelectedItems.Count == 1)
             {
                 ListView.SelectedListViewItemCollection items = clt_list.SelectedItems;
+
                 ListViewItem lvItem = items[0];
-                string toID = lvItem.SubItems[0].Text;
-                MessageBox.Show(toID);
-                new chForm(id, toID, mainSocket).ShowDialog();
+                string item = lvItem.Text;
+                if (!item.Equals(""))
+                {
+                    MessageBox.Show(item);
+                    new chForm(id, item, mainSocket).ShowDialog();
+                }
             }
         }
 
         private void lsForm_Load(object sender, EventArgs e)
         {
             InvokeList(client);
+        }
+
+        private void lsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            InvokeList(null);
         }
     }
 }

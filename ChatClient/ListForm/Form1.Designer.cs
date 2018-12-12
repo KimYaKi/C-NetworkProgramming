@@ -38,6 +38,7 @@
             this.clt_list.Size = new System.Drawing.Size(488, 597);
             this.clt_list.TabIndex = 0;
             this.clt_list.UseCompatibleStateImageBehavior = false;
+            this.clt_list.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.clt_list_MouseDoubleClick);
             // 
             // lsForm
             // 
@@ -47,6 +48,7 @@
             this.Controls.Add(this.clt_list);
             this.Name = "lsForm";
             this.Text = "List Form";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.lsForm_FormClosing);
             this.Load += new System.EventHandler(this.lsForm_Load);
             this.ResumeLayout(false);
 
