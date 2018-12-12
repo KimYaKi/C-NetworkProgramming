@@ -139,11 +139,16 @@ namespace Server
             string msg = null;
             // 전송받은 데이터에 대한 ACK를 보내기 위한 변수
             string sendingMsg;
-            // 기번 버퍼 초기화
+            // ACK MSG 버퍼 초기화
             byte[] msgBuff = null;
-            
+            // 현제 데이터를 전송한 Client의 정보를 담을 Socket 선언
             Socket socket = null;
-
+            // 접속중인 Client들의 항목을 담기위한 변수 선언
+            string list;
+            // Client List를 암호화 하기 위한 변수 선언
+            string listmsg;
+            // 접속중인 모든 Client에게 전송하기 위한 byte Buffer
+            byte[] ls;
             //--------------------------------------------------------------------
             switch (state_code)
             {
@@ -157,6 +162,7 @@ namespace Server
                     connectedClients.TryGetValue(id, out socket);
                     connectedClients.TryGetValue(ToID, out toSocket);
                     sendingMsg = "101/"+ id + "/" + data+"/";
+                    Console.WriteLine(sendingMsg);
                     msg = AES_encrypt(sendingMsg, "01234567890123456789012345678901");
                     msgBuff = Encoding.UTF8.GetBytes(msg);
                     sendTo(toSocket, msgBuff);
@@ -166,14 +172,15 @@ namespace Server
                 // 로그인
                 case "200":
                     string pwd = recv_text[2];
-                    // 클라이언트 수 증가
-                    clientNum++;
-                    string list = null;
+                    
                     AppendText(txtHistory, string.Format("[접속{0}]ID:{1}:{2}",
                                clientNum, id, obj.WorkingSocket.RemoteEndPoint.ToString()));
+                    list = null;
                     // ID 체크 하는 부분
-                    if (true)
+                    if (clientChk(id))
                     {
+                        // 클라이언트 수 증가
+                        clientNum++;
                         // 리스트에 추가하는 부분은 로그인 시에만 하면 됨
                         connectedClients.Add(id, obj.WorkingSocket);
                         // 현제 id(key)에 해당하는 Socket값을 socket변수에 반환 시켜 줌
@@ -195,8 +202,8 @@ namespace Server
                         // 현제 Socket값에 메시지 전송
                         sendTo(socket, msgBuff);
 
-                        string listmsg = AES_encrypt(list, "01234567890123456789012345678901");
-                        byte[] ls = Encoding.UTF8.GetBytes(listmsg);
+                        listmsg = AES_encrypt(list, "01234567890123456789012345678901");
+                        ls = Encoding.UTF8.GetBytes(listmsg);
                         sendAll(socket, ls);
                     }
                     else
@@ -239,9 +246,29 @@ namespace Server
 
                 // 종료
                 case "500":
+                    clientNum--;
+                    AppendText(txtHistory, string.Format("{0}", text));
                     sendingMsg = "501/End/";
+
                     connectedClients.TryGetValue(id, out socket);
                     msgBuff = Encoding.UTF8.GetBytes(sendingMsg);
+                    sendTo(socket, msgBuff);
+
+                    if(clientNum != 0)
+                    {
+                        // 현제 접속중인 Client의 id를 string형태의 변수에 '#'을 기준으로 저장
+                        list = null;
+                        foreach (var name in connectedClients.Keys)
+                        {
+                            if(!name.Equals(id))
+                                list += name + "#";
+                        }
+                        listmsg = AES_encrypt(list, "01234567890123456789012345678901");
+                        ls = Encoding.UTF8.GetBytes(listmsg);
+                        // Client가 접속을 해제하면 다른 Client에게 업데이트 Client 목록 전송
+                        sendAll(socket, ls);
+                    }
+                    
                     connectedClients.Remove(id);
                     AppendText(txtHistory, string.Format("접속해제완료:{0}", id));
                     break;
@@ -261,6 +288,7 @@ namespace Server
             {
                 obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
             }
+            Console.WriteLine(string.Format("접속중인 클라이언트 수 : {0}", clientNum));
         }
 
         void sendTo(Socket socket, byte[] buffer)
@@ -292,6 +320,16 @@ namespace Server
                 }
             }
         }
+
+        private Boolean clientChk(string id)
+        {
+            foreach (var name in connectedClients.Keys)
+            {
+                if (name.Equals(id))
+                    return false;
+            }
+            return true;
+        }
         
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -316,6 +354,7 @@ namespace Server
         //AES256 암호화
         public string AES_encrypt(string Input, string key)
         {
+            // Parameter로 암호화 시킬 문자열과 암호화에 적용할 Key를 받는다.
             RijndaelManaged aes = new RijndaelManaged();
             aes.KeySize = 256;
             aes.BlockSize = 128;
@@ -344,6 +383,7 @@ namespace Server
         //AES 256 복호화
         public string AES_decrypt(string Input, string key)
         {
+            // 암호화 된 문자열과 복호화를 진행할 Key를 Parameter로 갖는다.
             RijndaelManaged aes = new RijndaelManaged();
             aes.KeySize = 256;
             aes.BlockSize = 128;
