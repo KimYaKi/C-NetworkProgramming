@@ -69,7 +69,8 @@ namespace LoginForm
                 string data = AES_encrypt(protocol, "01234567890123456789012345678901");
                 // 문자열을 utf8 형식의 바이트로 변환한다.
                 byte[] bDts = Encoding.UTF8.GetBytes(data);
-
+                // 로그인 요청 암호화 정보 확인 MessageBox
+                MessageBox.Show(data);
                 // 서버에 전송한다.
                 mainSock.Send(bDts);
 
@@ -86,8 +87,17 @@ namespace LoginForm
             // BeginReceive에서 추가적으로 넘어온 데이터를 AsyncObject 형식으로 변환한다.
             AsyncObject obj = (AsyncObject)ar.AsyncState;
 
-            // 데이터 수신을 끝낸다.
-            int received = obj.WorkingSocket.EndReceive(ar);
+            // Socket에 Error가 있는 부분을 위한 변수
+            SocketError errorCode;
+
+            // 데이터를 받았을 때 errorCode도 함께 값을 선언한다.
+            int received = obj.WorkingSocket.EndReceive(ar, out errorCode);
+
+            // errorCode가 Success가 아니라면 received를 0으로 변환
+            if (errorCode != SocketError.Success)
+            {
+                received = 0;
+            }
 
             // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
             if (received <= 0)
@@ -120,9 +130,11 @@ namespace LoginForm
                 // 클라이언트에선 데이터를 전달해줄 필요가 없으므로 바로 수신 대기한다.
                 // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
                 obj.ClearBuffer();
-
+                
                 //this.Hide();
-                new lsForm(id_text.Text, list, mainSock).ShowDialog();
+                lsForm ls = new lsForm(id_text.Text, list, mainSock);
+                ls.ShowDialog();
+                //this.Show();
             }
             else
             {
@@ -134,13 +146,14 @@ namespace LoginForm
 
         private void lgForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string endMsg = "500/End/";
-            string data = AES_encrypt(endMsg, "01234567890123456789012345678901");
-            byte[] bDts = Encoding.UTF8.GetBytes(data);
-
             if (mainSock.Connected)
             {
+                string endMsg = "500/"+id_text.Text+"/";
+                string data = AES_encrypt(endMsg, "01234567890123456789012345678901");
+                byte[] bDts = Encoding.UTF8.GetBytes(data);
+                SendID(endMsg);
                 mainSock.Close();
+                MessageBox.Show("접속을 해제합니다.");
             }
         }
 
