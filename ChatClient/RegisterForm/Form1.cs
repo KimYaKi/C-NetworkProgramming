@@ -38,7 +38,7 @@ namespace RegisterForm
                 // 서버에 연결
                 try
                 {
-                    mainSock.Connect("127.0.0.1", port);
+                    mainSock.Connect("210.123.254.197", port);
                 }
                 catch (Exception ex)
                 {
